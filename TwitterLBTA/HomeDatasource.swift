@@ -18,7 +18,16 @@ class HomeDatasource: Datasource {
         return [brianUser, rayUser]
     }()
     
-    let tweets = ["tweet 1", "tweet 2"]
+    let tweets: [Tweet] = {
+        let brianUser = User(name: "brianName", username: "@brianUsername", bioText: "iOS Developer, Instructor", profileImage: #imageLiteral(resourceName: "profile_image"))
+        
+        let tweet = Tweet(user: brianUser, message: "We are already similar to the three V’s of big data: volume, velocity and variety. And yet, the cost and effort invested in dealing with poor data quality makes us consider the fourth aspect of Big Data – veracity.")
+        
+        let tweet2 = Tweet(user: brianUser, message: "In the era of Big Data, with the huge volume of generated data, the fast velocity of incoming data, and the large variety of heterogeneous data, the quality of data often is rather far from perfect. ")
+        
+        return [tweet, tweet2]
+        
+    }()
         
     override func footerClasses() -> [DatasourceCell.Type]? {
         return [UserFooter.self]
@@ -33,6 +42,10 @@ class HomeDatasource: Datasource {
     }
     
     override func item(_ indexPath: IndexPath) -> Any? {
+        if indexPath.section == 1 {
+            return tweets[indexPath.row]
+        }
+
         return users[indexPath.item]
     }
     
